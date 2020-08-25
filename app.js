@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
       square.classList.add(shuffleArray[i])
       grid.appendChild(square)
       squares.push(square)
+
+      // normal click
+      square.addEventListener('click', function (e) {
+        click(square)
+      })
     }
 
     // add numbers
@@ -56,4 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   createBoard()
+  //click on square action
+  function click(square) {
+    if (square.classList.contains('bomb')) {
+      alert('game over')
+    }
+  }
 })
