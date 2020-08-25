@@ -9,15 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // O método fill() preenche todos os valores do array a partir do índice inicial a um índice final com um valor estático
     const bombsArray = Array(bombAmount).fill('bomb')
     const emptyArray = Array(width * width - bombAmount).fill('valid')
-    console.log(bombsArray, emptyArray)
-
     const gameArray = emptyArray.concat(bombsArray)
     const shuffleArray = gameArray.sort(() => Math.random() - 0.5)
-    console.log(gameArray, shuffleArray)
 
     for (let i = 0; i < width * width; i++) {
       const square = document.createElement('div')
       square.setAttribute('id', i)
+      square.classList.add(shuffleArray[i])
       grid.appendChild(square)
       squares.push(square)
     }
