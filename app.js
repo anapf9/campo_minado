@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let flags = 0
   let squares = []
   let isGameOver = false
-  // create Board
+
+  // iniciando o jogo
   function createBoard() {
     // O método fill() preenche todos os valores do array a partir do índice inicial a um índice final com um valor estático
     // Usar classList é uma alternativa conveniente para acessar a lista de classes de um elemento como uma seqüência delimitada por espaço através de element.className
@@ -53,15 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+
   createBoard()
-  // adicionar o clic com botão direito do mouse para adicionar as flags de bombas
+
+  // adicionar e remover flags
   function addFlag(square) {
     if (isGameOver) return
-    if (!square.classList.contains('cheked') && (flags < bombAmount)) {
+    if (!square.classList.contains('checked') && (flags < bombAmount)) {
       if (!square.classList.contains('flag')) {
         square.classList.add('flag')
         square.innerHTML = '⛳'
         flags++
+        checkForWin()
       } else {
         square.classList.remove('flag')
         square.innerHTML = ''
@@ -69,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-  //click on square action
+  // Ação de clicar no quadrado da div
   function click(square) {
     let currentId = square.id
     if (isGameOver) return
@@ -137,18 +141,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 10);
   }
 
-  //game over
+  // Perdeu
   function gameOver() {
     isGameOver = true
-    //Show All bombs 👜
+    // Mostrar todas as bombas
     squares.forEach(square => {
       if (square.classList.contains('bomb')) {
         square.innerHTML = '💣'
       }
     })
+    alert('Ihhhh perdeu')
   }
 
-
+  // Ganhou
+  function checkForWin() {
+    let matches = 0
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i].classList.contains('flag') && squares[i].classList.contains('bomb')) {
+        matches++
+      }
+      if (matches === bombAmount) {
+        console.log('Ganhou o jogo e a minha vida todinha 💘')
+        isGameOver = true
+      }
+    }
+  }
 
 
 })
